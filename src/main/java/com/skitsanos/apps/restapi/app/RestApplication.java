@@ -11,16 +11,19 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RestApplication extends Application {
-    private Set<Object> singletons = new HashSet<Object>();
+public class RestApplication extends Application
+{
+    private Set<Object> singletons = new HashSet<>();
 
-    public RestApplication() {
+    public RestApplication()
+    {
         // Register our hello service
         singletons.add(new ApiEndpoints());
     }
 
     @Override
-    public Set<Object> getSingletons() {
+    public Set<Object> getSingletons()
+    {
         return singletons;
     }
 }
