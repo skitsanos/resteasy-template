@@ -13,17 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("/")
-public class ApiEndpoints
-{
+public class ApiEndpoints {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response index()
-    {
-        var result = new Object()
-        {
+    public Response index() {
+        var result = new Object() {
             final String info = String.format("REST API (%s) v.%s. Runtime v.%s (%s)",
-                    this.getClass().getPackage().getImplementationTitle(),
+                    this.getClass().getPackage().getName(),
                     this.getClass().getPackage().getImplementationVersion(),
                     System.getProperty("java.runtime.version"),
                     System.getProperty("java.vendor"));
@@ -35,12 +32,10 @@ public class ApiEndpoints
     @GET
     @Path("/echo")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response echo(@Context HttpHeaders requestHeaders)
-    {
+    public Response echo(@Context HttpHeaders requestHeaders) {
         List<String> headersParsed = new ArrayList<>(requestHeaders.getRequestHeaders().keySet());
 
-        var result = new Object()
-        {
+        var result = new Object() {
             final String[] headers = headersParsed.toArray(new String[0]);
         };
 
@@ -50,8 +45,7 @@ public class ApiEndpoints
 
     @GET
     @Path("/info")
-    public Response info()
-    {
+    public Response info() {
         return new JsonResponse(200, "It is working").json();
     }
 }
