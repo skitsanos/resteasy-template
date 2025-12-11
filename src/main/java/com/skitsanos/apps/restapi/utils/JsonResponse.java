@@ -1,39 +1,26 @@
 package com.skitsanos.apps.restapi.utils;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonMethod;
-import org.codehaus.jackson.map.ObjectMapper;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import javax.ws.rs.core.Response;
-import java.io.IOException;
+public final class JsonResponse {
+    private final int code;
+    private final Object payload;
 
-public final class JsonResponse
-{
-    protected int code = 200;
-    protected Object payload = null;
-
-    public JsonResponse(int code, Object payload)
-    {
+    public JsonResponse(int code, Object payload) {
         this.code = code;
         this.payload = payload;
     }
 
-    public Response json()
-    {
-        if (payload == null)
-        {
-            return Response.noContent().entity("Payload is empty").build();
+    public Response json() {
+        Response.ResponseBuilder builder = Response.status(code);
+        if (payload == null) {
+            return builder.build();
         }
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(JsonMethod.FIELD, JsonAutoDetect.Visibility.ANY);
-        try
-        {
-            String data = mapper.writeValueAsString(this.payload);
-            return Response.ok(data).build();
-        } catch (IOException e)
-        {
-            return Response.status(500).entity(e.toString()).build();
-        }
+        return builder
+                .entity(payload)
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .build();
     }
 }

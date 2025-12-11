@@ -1,16 +1,16 @@
 package com.skitsanos.apps.restapi.api;
 
 import com.skitsanos.apps.restapi.utils.JsonResponse;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Path("/")
 public class ApiEndpoints {
@@ -18,13 +18,13 @@ public class ApiEndpoints {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response index() {
-        var result = new Object() {
-            final String info = String.format("REST API (%s) v.%s. Runtime v.%s (%s)",
-                    this.getClass().getPackage().getName(),
-                    this.getClass().getPackage().getImplementationVersion(),
-                    System.getProperty("java.runtime.version"),
-                    System.getProperty("java.vendor"));
-        };
+        Map<String, String> result = Map.of(
+                "info", String.format("REST API (%s) v.%s. Runtime v.%s (%s)",
+                        this.getClass().getPackage().getName(),
+                        this.getClass().getPackage().getImplementationVersion(),
+                        System.getProperty("java.runtime.version"),
+                        System.getProperty("java.vendor"))
+        );
 
         return new JsonResponse(200, result).json();
     }
@@ -35,16 +35,16 @@ public class ApiEndpoints {
     public Response echo(@Context HttpHeaders requestHeaders) {
         List<String> headersParsed = new ArrayList<>(requestHeaders.getRequestHeaders().keySet());
 
-        var result = new Object() {
-            final String[] headers = headersParsed.toArray(new String[0]);
-        };
+        Map<String, Object> result = Map.of(
+                "headers", headersParsed
+        );
 
-        JsonResponse r = new JsonResponse(200, result);
-        return r.json();
+        return new JsonResponse(200, result).json();
     }
 
     @GET
     @Path("/info")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response info() {
         return new JsonResponse(200, "It is working").json();
     }

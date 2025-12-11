@@ -1,8 +1,8 @@
 package com.skitsanos.apps.restapi;
 
 import com.skitsanos.apps.restapi.app.RestApplication;
-import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import io.undertow.Undertow;
+import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 
 public class Server {
     public static void main(String[] args) {
@@ -13,19 +13,10 @@ public class Server {
 
         server.start(serverBuilder);
 
-        // Deploy our application
         server.deploy(RestApplication.class);
 
-        System.out.println("Server started on http://localhost:8080");
+        Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
 
-        // Keep the server running
-        while (true) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                server.stop();
-                break;
-            }
-        }
+        System.out.println("Server started on http://localhost:8080");
     }
 }
