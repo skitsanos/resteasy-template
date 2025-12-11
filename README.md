@@ -19,6 +19,7 @@ java -jar target/restapi-2.0.0.jar
 Endpoints (default port 8080):
 - `/` — service and runtime info (includes build version)
 - `/info` — basic health check
+- `/health` — JSON status indicator (`{"status":"UP"}`)
 - `/echo` — returns request header names
 
 ## Development

@@ -48,4 +48,12 @@ public class ApiEndpoints {
     public Response info() {
         return new JsonResponse(200, "It is working").json();
     }
+
+    @GET
+    @Path("/health")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response health() {
+        Map<String, String> result = Map.of("status", "UP");
+        return new JsonResponse(200, result).json();
+    }
 }
