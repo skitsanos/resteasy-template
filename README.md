@@ -13,7 +13,7 @@ Prereqs: JDK 17+ and Maven.
 
 ```bash
 mvn -q package
-java -jar target/restapi-2.0.0.jar
+java -jar target/restapi-2.0.1.jar
 ```
 
 Endpoints (default port 8080):
