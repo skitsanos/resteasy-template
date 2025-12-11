@@ -6,4 +6,12 @@ tasks:
   dev:
     cmds:
       - |
-        java -jar target/restapi-1.0-SNAPSHOT.jar
+        java -jar target/restapi-2.0.1.jar
+  image:build:
+    cmds:
+      - |
+        podman build -t resteasy-template:2.0.1 .
+  image:run:
+    cmds:
+      - |
+        podman run --rm -p 8080:8080 --name resteasy-template resteasy-template:2.0.1

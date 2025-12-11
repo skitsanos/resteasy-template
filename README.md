@@ -22,6 +22,12 @@ Endpoints (default port 8080):
 - `/health` — JSON status indicator (`{"status":"UP"}`)
 - `/echo` — returns request header names
 
+### Run in a container (Podman/Docker)
+```bash
+podman build -t resteasy-template:2.0.1 .
+podman run --rm -p 8080:8080 resteasy-template:2.0.1
+```
+
 ## Development
 - Run tests: `mvn test`
 - Update version: edit `pom.xml` `<version>` (propagates into manifest and `/` response)
