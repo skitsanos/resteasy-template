@@ -16,7 +16,7 @@
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <resteasy.version>7.0.1.Final</resteasy.version>
+        <resteasy.version>7.0.2.Final</resteasy.version>
         <undertow.version>2.4.0.RC4</undertow.version>
     </properties>
 
