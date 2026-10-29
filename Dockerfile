@@ -4,7 +4,7 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn -q -DskipTests package
 
-FROM eclipse-temurin:25.0.4_7-jre
+FROM eclipse-temurin:25.0.5_8-jre
 WORKDIR /app
 COPY --from=build /app/target/restapi-*.jar /app/app.jar
 EXPOSE 8080
